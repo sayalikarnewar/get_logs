@@ -1,0 +1,22 @@
+version: "3.8"
+services: 
+  database:
+    image: mongo
+    ports: 
+      - 27017:27017
+    # volumes: 
+    #   - /home/sayali_karnewar/Documents/follo/appp:/data/db
+    # working_dir: /data/db
+    network_mode: "host"
+
+  rest:
+    image: api_image
+    volumes: 
+      - /home/sayali_karnewar/Documents/follo/log_by_timestamp:/data/db
+    working_dir: /data/db
+    ports: 
+      - 8080:8080
+    command: python3 -u main.py
+    depends_on: 
+      - database
+    network_mode: "host"
